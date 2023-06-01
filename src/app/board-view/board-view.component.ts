@@ -37,16 +37,34 @@ export class BoardViewComponent implements OnInit {
   notifications: any = {};
 
   ngOnInit(): void {
+    this.breakPoint.observe([Breakpoints.Handset]).subscribe(
+      result => {
+        this.DeskTopView = !result.matches;
+      }
+    )
 
     let val = this.projectService.getProjectName();
 
     this.user.getProjectList().subscribe(
       response => {
-        if(response){
-          this.projectList = response;
-      
-          if (val === null || typeof val === 'undefined') {
-            val = this.projectList.projectList[0];
+            this.projectList = response;
+            if (val === null || typeof val === 'undefined') {
+              val = this.projectList.projectList[0];
+            }
+            this.projectService.setProjectName(val);
+            this.projectService.getProject(val).subscribe(
+              response => {
+                this.projectDetails = response;
+                this.projectService.setProjectDetails(this.projectDetails.columns["Work In Progress"])
+                this.projectService.setProjectDetailsTBD(this.projectDetails.columns["To Be Done"])
+                this.getNotification();
+
+              },
+              error => console.log("There was error fetching Project Details")
+            )
+          },
+          error => {
+            console.log(error);
           }
           if(this.projectList==""||this.projectList.length===0||typeof this.projectList==='undefined'||val==null){
             this.showAddTask=false;
@@ -488,6 +506,7 @@ export class BoardViewComponent implements OnInit {
 
   // Edit project 
   editProject(project: any) {
+
     this.projectService.getProject(project).subscribe(
       response=>{
         this.projectService.setProjectDetailsForProjectEdit(response);
@@ -496,7 +515,6 @@ export class BoardViewComponent implements OnInit {
         this.projectService.closeBoxForProject = false;
       }
     )
-
   }
 
   // ----------------------------------
@@ -723,3 +741,4 @@ export class BoardViewComponent implements OnInit {
   }
   
 }
+
