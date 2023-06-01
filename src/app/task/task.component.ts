@@ -3,6 +3,7 @@ import { FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ProjectService } from '../service/project.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { CustomValidation } from '../service/CustomValidation';
 
 @Component({
   selector: 'app-task',
@@ -96,8 +97,8 @@ fetchedProjectDetails:any;
 
 
   AddTask = this.fb.group({
-    taskName: ['', [Validators.required,Validators.pattern( /^[a-zA-Z]/)]],
-    taskContent: ['',[Validators.required,Validators.pattern( /^[a-zA-Z]/)]],
+    taskName: ['', [Validators.required,Validators.pattern( /^[a-zA-Z]/),  CustomValidation.titleValidator]],
+    taskContent: ['', [Validators.required, CustomValidation.contentValidator]],
     taskPriority: [''],
     startDate: [''],
     dueDate: [''],

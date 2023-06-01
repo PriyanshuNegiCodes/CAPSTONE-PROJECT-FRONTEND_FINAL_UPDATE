@@ -82,8 +82,20 @@ mat-menu {
 .logo{
     
         margin-left: 0px;
+        margin-right: 47vw;
     }
+
 }
+
+@media screen and (min-width: 1024px) and (max-width: 1366px) {
+
+    .container{
+    
+        margin-right: 10vw!important;
+    }
+  }
+  
+
 
 .noteIcon{
     margin-top: 17px;

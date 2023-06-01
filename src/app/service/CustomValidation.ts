@@ -12,4 +12,23 @@ export class CustomValidation{
             return {PasswordError:true};
         }
     }
+
+    static titleValidator(control: FormControl): ValidationErrors | null {
+        const title = control.value;
+        if (title && title.length > 15) {
+          return { maxLengthExceeded: true };
+        }
+        return null;
+      }
+
+    static contentValidator(control: FormControl): ValidationErrors | null {
+    const content = control.value;
+    if (content) {
+        const wordCount = content.trim().split(/\s+/).length;
+        if (wordCount > 15) {
+        return { maxWordCountExceeded: true };
+        }
+    }
+    return null;
+    }
 }   

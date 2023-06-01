@@ -36,6 +36,8 @@ import { ConfirmmessageComponent } from './confirmmessage/confirmmessage.compone
 import { CanDeactivatedTeam } from './service/can-deactivate-guard.guard';
 import { HomepageComponent } from './homepage/homepage.component';
 import { PagenotfoundComponent } from './pagenotfound/pagenotfound.component';
+import { NgxUiLoaderModule } from 'ngx-ui-loader';
+import { NgxUiLoaderHttpModule } from 'ngx-ui-loader';
 
 
 @NgModule({
@@ -76,7 +78,13 @@ import { PagenotfoundComponent } from './pagenotfound/pagenotfound.component';
     MatSelectModule,
     MatExpansionModule,
     MatGridListModule,
-    MatBadgeModule
+    MatBadgeModule,
+    NgxUiLoaderModule,
+    NgxUiLoaderHttpModule.forRoot(
+      {
+        showForeground: true
+      }
+    )
   ],
   providers: [CanDeactivatedTeam],
   bootstrap: [AppComponent]
