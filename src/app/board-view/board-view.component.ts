@@ -142,6 +142,9 @@ export class BoardViewComponent implements OnInit {
     if (event.previousContainer === event.container) {
       moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
     } else {
+
+
+
       if (this.getKey(event.container.data) == 'Work In Progress' && !this.getNumberOfTaskInWIP()) {
         this.openSnackBar("WIP limit reached", "OK")
         return;
@@ -176,15 +179,31 @@ export class BoardViewComponent implements OnInit {
     }
     console.log(this.projectDetails);
     console.log(event.previousContainer.data[0])
-    this.projectService.updateProject(this.projectDetails).subscribe(
-      response => {
-        console.log(response);
-      },
-      error => {
-        alert("There was error updating the project");
-        console.log(error);
-      }
-    )
+
+    // this.projectService.getProject(this.projectService.getProjectName()).subscribe(
+    //   response=>{
+    //     this.projectDetails=response;
+       
+    //   }
+    // )
+
+ 
+    
+    if(this.searchText.length==0){
+      this.projectService.updateProject(this.projectDetails).subscribe(
+        response => {
+          console.log(response);
+        },
+        error => {
+          alert("There was error updating the project");
+          console.log(error);
+        }
+      )
+
+    }else{
+      this.openSnackBar("Cannot Update while Searching", "OK")
+    }
+
   }
 
   getColumnIndex(columnName:any){
@@ -505,15 +524,6 @@ export class BoardViewComponent implements OnInit {
     this.toggleSidenav();
   }
 
-  // boardView(project: string) {
-  //   this.projectService.setProjectName(project);
-  //   this.projectService.getProject(project).subscribe(
-  //     response => {
-  //       this.projectDetails = response;
-  //     },
-  //     error => alert("There was error fetching Project Details")
-  //   )
-  // }
   boardView(project: string) {
     this.projectService.setProjectName(project);
     this.projectService.getProject(project).subscribe(

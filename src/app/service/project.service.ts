@@ -40,7 +40,6 @@ export class ProjectService {
 
   private allProjectDetails:any;
   setProjectDetailsForProjectEdit(projectDetails:any){
-    alert(JSON.stringify(projectDetails))
     this.allProjectDetails=projectDetails;
   }
 

@@ -61,7 +61,7 @@ export class ProjectComponent {
     this.columns.value.push("To Be Done");
     this.columns.value.push("Work In Progress");
     this.columns.value.push("Completed");
-    this.members.value.push(this.user.currentUser);
+    this.members.value.push(this.user.getUser());
     }
     
   }
@@ -154,6 +154,7 @@ getProjectNameForEdit(name:string){
       },
       error => {
         console.log("This is error" + error);
+        this.openSnackBar("Cannot Add Duplicate or Null members ", "OK")
       }
     )
   }

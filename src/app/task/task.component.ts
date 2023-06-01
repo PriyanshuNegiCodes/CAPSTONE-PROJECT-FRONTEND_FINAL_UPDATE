@@ -153,7 +153,7 @@ fetchedProjectDetails:any;
       );
   
     }else{
-      this.openSnackBar("Cannot Add More than 8 task in To-BE-Done", "OK")
+      this.openSnackBar("Cannot Add More than 10 task in To-BE-Done", "OK")
     }
     this.onClose()
   }
