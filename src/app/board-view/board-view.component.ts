@@ -17,6 +17,7 @@ import { ConfirmmessageComponent } from '../confirmmessage/confirmmessage.compon
 import html2canvas from 'html2canvas';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { JsonPipe } from '@angular/common';
+import { NgxUiLoaderService } from 'ngx-ui-loader';
 
 
 @Component({
@@ -31,12 +32,14 @@ export class BoardViewComponent implements OnInit {
   projectList: any=[];
 
   showAddTask:boolean=true;
+  isLoading:boolean=false;
   // ---------------------------------------------
-  constructor(private cdr:ChangeDetectorRef  ,private projectService: ProjectService, private http: HttpClient, private noti: NotificationService,
+  constructor(private ngxLoader: NgxUiLoaderService, private cdr:ChangeDetectorRef  ,private projectService: ProjectService, private http: HttpClient, private noti: NotificationService,
     private snackBar: MatSnackBar, private routing: Router, private user: UserService, private dialog: MatDialog,private breakPoint:BreakpointObserver) { }
   notifications: any = {};
 
   ngOnInit(): void {
+    this.isLoading=false;
 
     let val = this.projectService.getProjectName();
 
@@ -475,12 +478,14 @@ export class BoardViewComponent implements OnInit {
 
   projectDialog: any;
   projectWindow() {
+    this.isLoading=true;
     this.projectService.editProject = false;
     this.projectDialog = this.dialog.open(ProjectComponent);
     this.projectService.closeBoxForProject = false;
   }
 
   ngDoCheck() {
+    this.isLoading=true;
     if (this.projectService.closeBoxForProject) {
       this.projectDialog.close();
     }

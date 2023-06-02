@@ -1,7 +1,15 @@
+<ngx-ui-loader
+
+fgsColor="#00ACC1" text="Hold On!!"
+pbColor="#00ACC1">
+</ngx-ui-loader>
+
 <mat-sidenav-container class="example-container-nav">
 
   <!-- Side toggle nav-bar -->
+
   <mat-sidenav #sidenav mode="side" opened id="side-nav">
+
     <button mat-raised-button (click)="projectWindow()" class="btn"><mat-icon>add_box</mat-icon>Create
       Project</button>
 
@@ -84,7 +92,7 @@
       <button *ngIf="!DeskTopView" mat-icon-button [matMenuTriggerFor]="menu" aria-label="Toggle navigation">
         <mat-icon>menu</mat-icon>
       </button>
-      <!-- ________MAT-MENU for toolbar in the mobile view_____________ -->
+
       <mat-menu #menu="matMenu">
 
         <button mat-menu-item (click)="sortName()" matTooltip="Sort by Name" class="icn">
@@ -128,7 +136,7 @@
           <i class="fa fa-folder" style="font-size:22px;"></i>
         </button>
       </mat-menu>
-      <!-- ________MAT-MENU for toolbar in the mobile view_____________ -->
+
     </div>
 
     <div cdkDropListGroup class="kanban-main">
@@ -148,6 +156,7 @@
 
         <div cdkDropList [cdkDropListData]="getColumnTasks(columnName)" class="example-list"
           (cdkDropListDropped)="drop($event)">
+     
           <ng-container *ngFor="let task of getColumnTasks(columnName)">
             <ng-container *ngIf="getTaskVisibility(task.status)">
               <div class="example-box" cdkDrag (cdkDragStarted)="onDragStart(task)">
@@ -175,14 +184,7 @@
                     <mat-card-content>
                       <div class="content">{{task.content}}</div>
                     </mat-card-content>
-                    <!-- <div class="icon-row-one">
-                      <mat-icon class="editTaskICON" matTooltip="Edit Task" (click)="editTask(task)">
-                        create
-                      </mat-icon>
-                      <div class="blink" matTooltip="Due Date Remainder">
-                        <mat-icon *ngIf="getSpanBackgroundColor(task.deadline, task)">warning</mat-icon>
-                      </div>
-                    </div> -->
+        
                     <mat-card-actions class="change">
                       <span>
                         <span mat-icon-button id="priority" matTooltip="Priority : {{task.priority}}">
@@ -197,10 +199,6 @@
                         </span>
                       </span>
 
-                      <!-- <span matTooltip="Due date : {{task.deadline.slice(0,10)}} ">
-                        <mat-icon id="cal">calendar_today</mat-icon>
-                        <small id="deadline">{{load(task.deadline)}}</small>
-                      </span> -->
                       <div class="calendar-icon" matTooltip="Due date : {{task.deadline.slice(0,10)}} ">
                         <mat-icon [ngClass]="getSpanBackgroundColor(task.deadline, task)">calendar_today</mat-icon>
                         <span class="date">{{load(task.deadline)}}</span>
@@ -210,10 +208,7 @@
 
 
                       <div class="circle1" matTooltip="Assigned by {{task.assignee}}">{{task.assignee.charAt(0)}}</div>
-                      <!-- <span matTooltip="Assigned by {{task.assignee}}">
-                        <mat-icon id="iconA">brightness_1</mat-icon>
-                        <small id="assigne">{{loadA(task.assignee)}}</small>
-                      </span> -->
+            
                       <mat-icon class="editTaskICON" matTooltip="Edit Task" (click)="editTask(task)">
                         create
                       </mat-icon>

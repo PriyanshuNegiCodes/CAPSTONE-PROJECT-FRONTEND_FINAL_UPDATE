@@ -1,3 +1,7 @@
+<ngx-ui-loader
+fgsColor="#00ACC1" text="Hold On!!" pbColor="#00ACC1"
+>
+</ngx-ui-loader>
 <body>
   <img class="loginBackGroundImage" src="../../assets/loginImage.png" alt="">
 
@@ -18,7 +22,7 @@
           </p>
         </div>
         
-        <mat-form-field >
+        <mat-form-field appearance="outline">
           <span id="eyes" (click)="change()"><i class="fa {{eyeIcon}}"></i></span>
           <input matInput [type]="type" placeholder="Password" formControlName="password">
  
