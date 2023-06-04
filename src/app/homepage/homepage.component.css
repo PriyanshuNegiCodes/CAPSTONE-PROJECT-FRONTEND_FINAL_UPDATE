@@ -1,116 +1,28 @@
-#bg{
-    position: relative;
-    width: 91.4em;
-    margin-top: 40px;
-}
-.cont{
-    background-color: rgb(40, 42, 57);
-}
-#header{
+#header {
+    width: 100%;
     margin-left: 340px;
-    transform-style: preserve-3d;
-    animation: rotate 8s infinite linear;
-}
-#txt2 ,#txt4, #txt6{
-    top:100px;
-    padding-left:800px;
-}
-#txt3, #txt5,#txt7{
-    top:85px;
-}
-
-/* #txt2{
-    z-index:1;
-    top:300px;
-    padding-left: 950px;
-}
-#txt3{
-    top:-100px;
-}
-#txt4{
-    top:150px;
-    padding-left:690px;
-}
-#txt5{
-    /* left:300px; */
-    /* z-index:1;
-    top:230px;
-    padding-left: 10px;
-}
-#txt6{
-    top:-80px;
-    padding-left: 800px;
-}  */
-
-
-
-
-@keyframes rotate {
-    from {
-        transform: rotateY(0);
-    }
-    to {
-        transform: rotateY(360deg);
-    }
-}
-ul , #txt1{
-    color:white;
-    font-family:Georgia, 'Times New Roman', Times, serif;
-    list-style: none;
-}
-li, #txt1{
-    position: relative;
-    font-size: 18px;
-}
-#txt1{
-    z-index: 1;
-    top:480px;
-    left:-420px;
-}
-
-#kanban{
-    margin-left:590px;
-    margin-top: -20em;
-    height: 410px;
-}
-
-#desgn{
-    height: 140px;
-    margin-top:-117px;
-}
-
-#head{
-    margin-bottom: 20px;
-    font-size: 30px;
-}
-.content{
-   color: white;
-   position: relative;
-   width:600px;
-   padding-top: 70px;
-   padding-left: 30px;
-   font-family: Arial, Helvetica, sans-serif;
-}
-.dashboard{
-    background-color: rgb(38, 38, 50);
-}
-
-#kanbanLogo{
+  }
+  
+  #kanbanLogo {
     height: 60px;
     width: 300px;
-}
-
-#logo{
-position: absolute;
-margin-top: -550px;
-height: 250px;
-margin-left: -500px;
-}
-
-.header {
+  }
+  
+  .cont2{
+    
+  }
+  
+  .header {
     overflow: hidden;
-    background-color: rgb(228, 228, 245);
-    /* background-color: #f1f1f1; */
+    background-color: rgba(148, 182, 214, 0.975);
+    background-image:
+      radial-gradient(white, rgba(255, 255, 255, .2) 2px, transparent 40px),
+      radial-gradient(white, rgba(255, 255, 255, .15) 1px, transparent 30px),
+      radial-gradient(white, rgba(255, 255, 255, .1) 2px, transparent 40px),
+      radial-gradient(rgba(255, 255, 255, .4), rgba(255, 255, 255, .1) 2px, transparent 30px);
+    background-size: 550px 550px, 350px 350px, 250px 250px, 150px 150px;
+    background-position: 0 0, 40px 60px, 130px 270px, 70px 100px;
+    /* background-color: rgba(164, 64, 86, 0.495); */
     padding: 10px 10px;
   }
   
@@ -140,7 +52,7 @@ margin-left: -500px;
   
   /* Style the active/current link*/
   .header a.active {
-    background-color: rgb(137, 120, 236);
+    background-color: rgb(50, 51, 97);
     color: white;
   }
   
@@ -149,14 +61,304 @@ margin-left: -500px;
     float: right;
   }
   
+  
+  .dashboard {
+    display: grid;
+    grid-template-columns: 57% 43%;
+    background-color: rgb(243, 248, 251);
+    color: rgb(50, 57, 78);
+  }
+  
+  #kanban {
+    width: 39em;
+    padding-top: 2em;
+    height: 35em;
+  }
+  
+  .defn {
+    font-size: 17px;
+    /* padding-top: 1em; */
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    padding-left: 4em;
+  }
+  button{
+    margin-top: 7%;
+    margin-left: 27%;
+    font-size: 20px;
+    padding: 1em 2em;
+    background-color: rgb(31, 60, 156);
+  }
+  
+  #desgn{
+    padding-top: 8%;
+    margin-left: 10%;
+    width: 55%;
+    transform: rotate(340deg);
+  }
+  .cont2{
+    display: grid;
+    /* height: 84%; */
+    grid-template-columns: 40% 60%;
+    background-color: rgb(252, 251, 251);
+  }
+  
+  .content2{
+    padding-top:10%;
+    padding-bottom: 10%;
+  }
+  
+  .content2 .defn2{
+    padding-top: 7%;
+  }
+  .content2 span{
+    font-size: 2.4em;
+    font-weight: 800;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+  }
+  
+  .content2 p{
+    width: 90%;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    line-height: 26px;
+    font-size: 19px;
+  }
+  
+  #para{
+    padding-top: 2em;
+  }
+  
+  .cont3 p{
+    width: 90%;
+    padding-left: 3.4em;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    line-height: 26px;
+    font-size: 19px;
+  }
+  
+  .cont3{
+    display: grid;
+    padding-bottom: 5%;
+    background-color: rgb(243, 248, 243);
+    grid-template-columns: 65% 35%;
+  }
+  
+  #head3{
+    padding-top: 7%;
+    padding-left: 2em;
+    line-height: 1.5em;
+    font-size: 2.4em;
+    font-weight: 800;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+  }
+  
+  #kanbanimg{
+    padding-top: 20%;
+    width: 100%;
+  }
+  
+  #head {
+    padding-top: 1em;
+    padding-left: 1em;
+    font-size: 4rem;
+    font-weight: 700;
+    line-height: 70px;
+    font-family: 'Merienda', sans-serif;
+    margin: 1rem auto;
+    color: #484867a2;
+    background: -webkit-gradient(linear, left top, right top, from(#2048c9e4), to(#3414e8), color-stop(0.8, #0b2ac2)) no-repeat;
+    background: gradient(linear, left top, right top, from(#222222), to(#222), color-stop(0.8, #fff)) no-repeat;
+    background-size: 170px 100%;
+    -webkit-background-clip: text;
+    background-clip: text;
+    animation: flick 3s infinite;
+  }
+  @keyframes flick {
+    0% {
+      background-position: top left;
+    }
+    100% {
+      background-position: top right;
+    }
+  }
+  
+  /* Line designing */
+  
+  #light{
+    position: relative;
+  }
+  #lineh1{
+    position: absolute;
+    left: 0;
+    height: 10px;
+    background: #e1168d;
+    animation: lineH 4s 5s infinite linear;
+  }
+  #lineh2{
+    position: absolute;
+    right: 0;
+    top: 40px;
+    height: 10px;
+    background: #ede611;
+    animation: lineH 5s 0.5s infinite linear;
+  }
+  #lineh3{
+    position: absolute;
+    left: 0;
+    top: 70px;
+    height: 10px;
+    background: #00D4FF;
+    animation: lineH 5s 2s infinite linear;
+  }
+  #lineh4{
+    position: absolute;
+    right: 0;
+    top: 100px;
+    height: 10px;
+    background: #00AA2B;
+    animation: lineH 5s 1s infinite linear;
+  }
+  @keyframes lineH{
+    0%{
+      width: 0%;
+    }
+    100%{
+      width: 95%;opacity: 0;
+    }
+  }
+  
+  /* Footer Css */
+  
+  
+   .social-icons {
+    text-align: center;
+    }
+  .social-icons a {
+    width: 40px;
+    height: 40px;
+    line-height: 40px;
+    margin-left: 6px;
+    margin-right: 0;
+    border-radius: 100%;
+    background-color: #33353d;
+    }
+    .copyright-text {
+    margin: 0;
+    }
+    @media (max-width: 767px) {
+       .copyright-text, .social-icons {
+      text-align: center;
+      }
+      }
+      .social-icons {
+      padding-left: 0;
+      margin-bottom: 0;
+      list-style: none;
+      }
+      .social-icons li {
+      display: inline-block;
+      margin-bottom: 4px;
+      }
+      .social-icons a {
+      background-color: #eceeef;
+      color: #818a91;
+      font-size: 16px;
+      display: inline-block;
+      line-height: 44px;
+      width: 44px;
+      height: 44px;
+      text-align: center;
+      margin-right: 8px;
+      border-radius: 100%;
+      -webkit-transition: all 0.2s linear;
+      -o-transition: all 0.2s linear;
+      transition: all 0.2s linear;
+      }
+      .logo{
+      color:#eb6857;
+      }
+      .social-icons a:active,
+      .social-icons a:focus,
+      .social-icons a:hover {
+      color: #fff;
+      background-color: #29aafe;
+      }
+      .social-icons a.facebook:hover {
+      background-color: #3b5998;
+      }
+      .social-icons a.twitter:hover {
+      background-color: #00aced;
+      }
+      .social-icons a.linkedin:hover {
+      background-color: #007bb6;
+      }
+      .social-icons a.dribbble:hover {
+      background-color: #ea4c89;
+      }
+  
+  
   /* Add media queries for responsiveness - when the screen is 500px wide or less, stack the links on top of each other */
-  @media screen and (max-width: 500px) {
+  @media only screen and (max-width: 768px) {
     .header a {
       float: none;
       display: block;
       text-align: left;
     }
+  
     .header-right {
       float: none;
     }
+  
+    .dashboard, .cont2 , .cont3{
+      width:100%;
+      display: grid;
+      grid-template-columns: 100%;
+    }
+  
+    .footer{
+      width: 80%;
+    }
+  
+    .header{
+      margin: 0px;
+      padding: 0px;
+      width:100%;
+    }
+    
+    #kanbanLogo{
+      width:90%;
+    }
+  
+    button{
+      padding: 1em 1em;
+      margin-left: -5px;
+    }
+  
+    #kanban {
+      width:90%;
+      height: 15em;
+      margin-left: 3%;
+      padding-top: 10px;
+      /* margin-top: -80px; */
+    }
+  
+    .defn
+     {
+      width: 90%;
+      margin-left:-20px 
+    }
+  
+    #desgn {
+      width: 60%;
+      background-color: rgb(44, 44, 61);
+      margin-top: 17em;
+    }
+  
+    #head{
+      font-size: 2.3em;
+      line-height: 32px;
+      margin-left: 15%;
+      padding-left: 0px;
+      width:70%
+    }
+  
   }
