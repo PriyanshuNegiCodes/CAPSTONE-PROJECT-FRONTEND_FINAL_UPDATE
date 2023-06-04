@@ -315,7 +315,7 @@
     }
   
     .footer{
-      width: 80%;
+      width: 100%;
     }
   
     .header{
@@ -330,7 +330,7 @@
   
     button{
       padding: 1em 1em;
-      margin-left: -5px;
+      margin-left: 45px;
     }
   
     #kanban {
@@ -341,24 +341,43 @@
       /* margin-top: -80px; */
     }
   
+    .content2 {
+      margin-left: 2em;
+    }
+  
+    .content2 span{
+      line-height: 1.2em;
+    }
+  
     .defn
      {
-      width: 90%;
+      width: 100%;
       margin-left:-20px 
     }
   
     #desgn {
       width: 60%;
-      background-color: rgb(44, 44, 61);
-      margin-top: 17em;
+      position: absolute;
+      padding-top: 10em;
+      /* background-color: rgb(44, 44, 61); */
+      /* padding-top: 17em; */
+    }
+  
+    #kanbanimg{
+      width:90%;
+      margin-top: -4em;
+      margin-left: 1.2em;
     }
   
     #head{
       font-size: 2.3em;
       line-height: 32px;
-      margin-left: 15%;
+      margin-left: 13%;
       padding-left: 0px;
-      width:70%
+      width:80%
+    }
+    .content2 .defn2{
+      padding-top: 14em;
     }
   
   }
