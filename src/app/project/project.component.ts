@@ -13,7 +13,7 @@ import { MatDialog } from '@angular/material/dialog';
   templateUrl: './project.component.html',
   styleUrls: ['./project.component.css']
 })
-export class ProjectComponent {
+export class ProjectComponent implements OnInit {
 
   projectForm: any | FormGroup;
 
