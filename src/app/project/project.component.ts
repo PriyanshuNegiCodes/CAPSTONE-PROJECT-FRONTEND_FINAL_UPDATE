@@ -150,6 +150,8 @@ getProjectNameForEdit(name:string){
           } else {
             this.openSnackBar("Other than you, Cannot Add more than 5 Employees to a Project", "Ok");
           }
+        }else{
+          this.openSnackBar("Member do not exist", "")
         }
       },
       error => {
@@ -235,7 +237,7 @@ getProjectNameForEdit(name:string){
   }
 
   openSnackBar(message: string, action: string) {
-    this.snackBar.open(message, action);
+    this.snackBar.open(message, action,{duration:3000});
   }
   // -----------------------------------------
   boardView(project: string) {
@@ -340,7 +342,7 @@ getProjectNameForEdit(name:string){
                 response => {
                    
                   if((i===(this.tempArrayForEdit.length-1)&&response)){
-                    this.openSnackBar("Project updated Successfully", "OK");
+                    this.openSnackBar("Project edited Successfully", "OK");
                     this.routes.navigateByUrl('/', { skipLocationChange: true }).then(() => {
                       this.routes.navigate(['/boardView']);
                     });

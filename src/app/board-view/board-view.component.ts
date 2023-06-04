@@ -32,14 +32,14 @@ export class BoardViewComponent implements OnInit {
   projectList: any=[];
 
   showAddTask:boolean=true;
-  isLoading:boolean=false;
+
   // ---------------------------------------------
   constructor(private ngxLoader: NgxUiLoaderService, private cdr:ChangeDetectorRef  ,private projectService: ProjectService, private http: HttpClient, private noti: NotificationService,
     private snackBar: MatSnackBar, private routing: Router, private user: UserService, private dialog: MatDialog,private breakPoint:BreakpointObserver) { }
   notifications: any = {};
 
   ngOnInit(): void {
-    this.isLoading=false;
+   
 
     let val = this.projectService.getProjectName();
 
@@ -53,6 +53,8 @@ export class BoardViewComponent implements OnInit {
           }
           if(this.projectList==""||this.projectList.length===0||typeof this.projectList==='undefined'||val==null){
             this.showAddTask=false;
+          }else{
+            this.showAddTask=true;
           } 
           this.projectService.setProjectName(val);
           this.projectService.getProject(val).subscribe(
@@ -478,14 +480,12 @@ export class BoardViewComponent implements OnInit {
 
   projectDialog: any;
   projectWindow() {
-    this.isLoading=true;
     this.projectService.editProject = false;
     this.projectDialog = this.dialog.open(ProjectComponent);
     this.projectService.closeBoxForProject = false;
   }
 
   ngDoCheck() {
-    this.isLoading=true;
     if (this.projectService.closeBoxForProject) {
       this.projectDialog.close();
     }
@@ -495,10 +495,12 @@ export class BoardViewComponent implements OnInit {
   editProject(project: any) {
     this.projectService.getProject(project).subscribe(
       response=>{
-        this.projectService.setProjectDetailsForProjectEdit(response);
-        this.projectService.editProject = true;
-        this.projectDialog = this.dialog.open(ProjectComponent);
-        this.projectService.closeBoxForProject = false;
+        if(response){
+          this.projectService.setProjectDetailsForProjectEdit(response);
+          this.projectService.editProject = true;
+          this.projectDialog = this.dialog.open(ProjectComponent);
+          this.projectService.closeBoxForProject = false;
+        }
       }
     )
 

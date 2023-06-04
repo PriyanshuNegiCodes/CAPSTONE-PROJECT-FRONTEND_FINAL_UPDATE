@@ -84,7 +84,7 @@ export class RegisterComponent implements OnInit{
   }
 
   openSnackBar(message: string, action: string) {
-    this.matSnackBar.open(message, action);
+    this.matSnackBar.open(message, action,{duration:3000});
 
   }
 
