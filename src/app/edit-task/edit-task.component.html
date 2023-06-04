@@ -25,11 +25,15 @@ fgsColor="#00ACC1" text="Hold On!!" pbColor="#00ACC1"
               Task name is required
             </mat-error>
             <mat-error *ngIf="taskName?.hasError('pattern')">
-              Task name should start with a character.
+              Task name should start with a character
+            </mat-error>
+            <mat-error *ngIf="taskName?.hasError('maxLengthExceeded')">
+              Task name should not exceed 20 characters
             </mat-error>
           </mat-error>
         </mat-form-field>
       </div>
+  
   
       <div class="valid-forms">
         <mat-form-field class="input">
@@ -41,6 +45,9 @@ fgsColor="#00ACC1" text="Hold On!!" pbColor="#00ACC1"
             </mat-error>
             <mat-error *ngIf="taskContent?.hasError('pattern')">
               Task content should start with a character.
+            </mat-error>
+            <mat-error *ngIf="taskContent?.hasError('maxWordCountExceeded')">
+              Task content should not exceed 20 words
             </mat-error>
           </mat-error>
         </mat-form-field>

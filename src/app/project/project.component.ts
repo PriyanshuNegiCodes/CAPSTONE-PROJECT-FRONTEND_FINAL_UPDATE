@@ -174,7 +174,7 @@ getProjectNameForEdit(name:string){
 
       if (this.projectForm.valid) {
         const project: Project = {
-          name: `${this.name.value}-->${this.user.currentUser}`,
+          name: `${this.name.value}-->${this.user.getUser()}`,
           members: this.members.value,
           columns: Object.fromEntries(columnList.entries())
         };
