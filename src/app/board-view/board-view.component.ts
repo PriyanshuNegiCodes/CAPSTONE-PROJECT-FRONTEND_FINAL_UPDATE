@@ -32,6 +32,8 @@ export class BoardViewComponent implements OnInit {
 
   showAddTask:boolean=true;
 
+  taskMembers:string []=[];
+
   // ---------------------------------------------
   constructor(private ngxLoader: NgxUiLoaderService, private cdr:ChangeDetectorRef  ,private projectService: ProjectService, private http: HttpClient, private noti: NotificationService,
     private snackBar: MatSnackBar, private routing: Router, private user: UserService, private dialog: MatDialog,private breakPoint:BreakpointObserver) { }
@@ -147,12 +149,24 @@ export class BoardViewComponent implements OnInit {
     if (event.previousContainer === event.container) {
       moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
     } else {
+      
+      
+      console.log("-----------------");
+
+      console.log(this.taskMembers);
+      
+      if(!this.taskMembers.includes(this.user.getUser())){
+   
+        this.openSnackBar("You Are not a member of the task", "OK")
+        return;
+      }
+   
 
       if(event.previousContainer.data[0].status=="Archived"){
         this.openSnackBar("Movement Not allowed in Archives", "OK")
         return ;
       }
-      
+
       if (this.getKey(event.container.data) == 'Work In Progress' && !this.getNumberOfTaskInWIP()) {
         this.openSnackBar("WIP limit reached", "OK")
         return;
@@ -383,7 +397,7 @@ export class BoardViewComponent implements OnInit {
   }
 
   onDragStart(task: any) {
-    console.log(task);
+    this.taskMembers=task.members
     
     this.currentCardTaskStatus = task.priority;
   }
