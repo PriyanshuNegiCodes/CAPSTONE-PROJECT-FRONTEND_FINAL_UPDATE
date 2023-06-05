@@ -31,7 +31,11 @@ export class ProjectComponent implements OnInit {
   edit:any;
   ngOnInit() {
     // this.tempArrayForEdit=null;
+    
+    // this.project.closeBoxForProject=true;
+
     this.edit=false;
+
 
     if( this.project.editProject==true){
       this.projectDetails= this.project.getProjectDetailsForProjectEdit();
@@ -316,7 +320,7 @@ getProjectNameForEdit(name:string){
   }
 
   // -----------------Confirm project box close
-  dialogOpen: any;
+  dialogOpen:any=this.dialog.open(ConfirmmessageComponent).close();
   confirmWindow() {
     this.project.confirmMsg = "prj";
     this.dialogOpen = this.dialog.open(ConfirmmessageComponent);

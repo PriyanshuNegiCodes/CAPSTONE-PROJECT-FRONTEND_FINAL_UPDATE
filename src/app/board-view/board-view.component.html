@@ -207,9 +207,11 @@ pbColor="#00ACC1">
 
                       <div class="circle1" matTooltip="Assigned by {{task.assignee}}">{{task.assignee.charAt(0)}}</div>
             
-                      <mat-icon class="editTaskICON" matTooltip="Edit Task" (click)="editTask(task)">
-                        create
-                      </mat-icon>
+                      <div *ngIf='task.status!=="Archived"'>
+                        <mat-icon class="editTaskICON" matTooltip="Edit Task" (click)="editTask(task)">
+                          create
+                        </mat-icon>
+                      </div>
                       <mat-icon
                         *ngIf="(!taskArchive && currentUser == task.assignee)||(!taskArchive && columnName=='Completed')"
                         id="delete" matTooltip="Delete Task" (click)="delete(columnName,task)">delete</mat-icon>

@@ -175,4 +175,58 @@ export class EditTaskComponent implements OnInit {
     }
     this.isFormDisabled = !this.isFormDisabled
   }
+
+  fetchedProjectDetails:any;
+  frequencyMethod(){
+    if (this.projectService.projectDetails.length==0){
+      return this.projectMembers;
+    }
+    if (!this.projectService.projectDetails == null || typeof this.projectService.projectDetails !== "undefined") {
+
+         this.fetchedProjectDetails=this.projectService.projectDetails;
+          let memberArray:any=[]; 
+        for(let i=0; i<this.fetchedProjectDetails.length;i++){
+          for(let j=0; j<this.fetchedProjectDetails[i].members.length;j++){
+            if(this.projectMembers.includes(this.fetchedProjectDetails[i].members[j])){
+              if(this.fetchedProjectDetails[i].status!=="Archived"){
+                memberArray.push(this.fetchedProjectDetails[i].members[j]);
+              }
+            }
+
+          }
+        }
+
+        for (let i = 0; i < this.projectMembers.length; i++) {
+          if (!memberArray.includes(this.projectMembers[i])&&this.projectMembers.includes(this.projectMembers[i])) {
+            if(this.fetchedProjectDetails[i].status!=="Archive"){
+              memberArray.push(this.projectMembers[i]);
+            }
+            
+          }
+        }
+
+        let occurrenceOfMembers:any ={};
+
+        for(let i=0;i<memberArray.length;i++){
+          let memberName=memberArray[i]
+
+          if(occurrenceOfMembers[memberName]){
+            occurrenceOfMembers[memberName]++;
+          }else{
+            occurrenceOfMembers[memberName]=1
+          }
+        }
+        
+        let availableMembersArray:any=[];
+        for(let key in occurrenceOfMembers){
+          if(occurrenceOfMembers[key]<5){
+            availableMembersArray.push(key)
+          }
+        }
+
+        return availableMembersArray;
+     }
+ 
+  }
+
 }

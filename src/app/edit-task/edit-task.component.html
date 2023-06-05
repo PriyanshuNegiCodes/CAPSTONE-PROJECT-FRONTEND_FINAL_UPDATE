@@ -79,7 +79,7 @@ fgsColor="#00ACC1" text="Hold On!!" pbColor="#00ACC1"
   
   
       </div>
-  
+<!--   
       <div class="forms">
         <mat-form-field appearance="fill">
           <mat-label>Assigned to</mat-label>
@@ -90,8 +90,20 @@ fgsColor="#00ACC1" text="Hold On!!" pbColor="#00ACC1"
             <mat-option *ngFor="let member of projectMembers" [value]="member">{{member}}</mat-option>
           </mat-select>
         </mat-form-field>
-      </div>
+      </div> -->
   
+      <div class="forms">
+        <mat-form-field appearance="fill">
+          <mat-label>Assigned to</mat-label>
+          <mat-select formControlName="members" multiple>
+            <mat-select-trigger>
+              {{members?.value|| ''}}
+            </mat-select-trigger>
+            <mat-option *ngFor="let member of frequencyMethod()" [value]="member">{{member}}</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+      
       <div id="prty">
       <span mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu" id="priority"
         matTooltip="Priority">

@@ -16,7 +16,6 @@ import { EditTaskComponent } from '../edit-task/edit-task.component';
 import { ConfirmmessageComponent } from '../confirmmessage/confirmmessage.component';
 import html2canvas from 'html2canvas';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
-import { JsonPipe } from '@angular/common';
 import { NgxUiLoaderService } from 'ngx-ui-loader';
 
 
@@ -58,7 +57,7 @@ export class BoardViewComponent implements OnInit {
           } 
           this.projectService.setProjectName(val);
           this.projectService.getProject(val).subscribe(
-            response => {
+            response => {``
               this.projectDetails = response;
               this.projectService.setProjectDetails(this.projectDetails.columns["Work In Progress"])
               this.projectService.setProjectDetailsTBD(this.projectDetails.columns["To Be Done"])
@@ -169,11 +168,13 @@ export class BoardViewComponent implements OnInit {
 
       
      
-      let initial=this.getColumnIndex(event.previousContainer.data[0].status);
+      // let initial=this.getColumnIndex(event.previousContainer.data[0].status);
+      let initial=this.getColumnIndex(this.getKey(event.previousContainer.data));
       let final=this.getColumnIndex(this.getKey(event.container.data));
-      alert(event.previousContainer.data[0].status)  
+    
+      // alert("From "+event.previousContainer.data[1].status+ " to "+ this.getKey(event.container.data))
       if ((final-initial>=2) || (initial-final>=2)) {
-        alert("final"+final+" initial " +initial)
+        alert("Final "+final+" initial "+initial)
         this.openSnackBar("Kindly don't skip any step", "OK");
         return;
       }
@@ -198,15 +199,10 @@ export class BoardViewComponent implements OnInit {
  
     
     if(this.searchText.length==0){
-      this.projectService.updateProject(this.projectDetails).subscribe(
-        response => {
-          console.log(response);
-        },
-        error => {
-          alert("There was error updating the project");
-          console.log(error);
-        }
-      )
+      
+      this.getColumnTasks(this.getKey(event.container.data));
+
+      this.updateProjectDetails();
 
     }else{
       this.openSnackBar("Cannot Update while Searching", "OK")
@@ -383,6 +379,8 @@ export class BoardViewComponent implements OnInit {
   }
 
   onDragStart(task: any) {
+    console.log(task);
+    
     this.currentCardTaskStatus = task.priority;
   }
   deleteProject(project: any) {
@@ -445,7 +443,7 @@ export class BoardViewComponent implements OnInit {
         }
       } else {
         if (this.projectDetails.columns[columnName][i].name == task.name) {
-          alert(columnName)
+   
           this.projectDetails.columns[columnName][i].status = columnName
           // this.projectDetails.columns[columnName].splice(i, 1);
           this.openSnackBar("The task was Restored successfully", "OK")
@@ -493,7 +491,7 @@ export class BoardViewComponent implements OnInit {
 
   // ----------------------------
 
-  projectDialog: any;
+  projectDialog:any=this.dialog.open(ProjectComponent).close();
   projectWindow() {
     this.projectService.editProject = false;
     this.projectDialog = this.dialog.open(ProjectComponent);
@@ -646,15 +644,7 @@ export class BoardViewComponent implements OnInit {
         const newName = event.target.innerText;
         delete this.projectDetails.columns[columnName];
         this.projectDetails.columns[newName] = arr;
-        this.projectService.updateProject(this.projectDetails).subscribe(
-          response => {
-            console.log(response);
-          },
-          error => {
-            alert("There was error updating the project");
-            console.log(error);
-          }
-        )
+        this.updateProjectDetails();
       }
     }
     console.log(this.projectDetails.columns);
@@ -671,15 +661,7 @@ export class BoardViewComponent implements OnInit {
     console.log(i);
     if (i < 6) {
       this.projectDetails.columns['New Column'] = [];
-      this.projectService.updateProject(this.projectDetails).subscribe(
-        response => {
-          console.log(response);
-        },
-        error => {
-          alert("There was error updating the project");
-          console.log(error);
-        }
-      )
+      this.updateProjectDetails();
     }
     else {
       this.openSnackBar("Cannot add any more Columns", "Ok")
@@ -693,15 +675,7 @@ export class BoardViewComponent implements OnInit {
     else {
       delete this.projectDetails.columns[columnName];
     }
-    this.projectService.updateProject(this.projectDetails).subscribe(
-      response => {
-        console.log(response);
-      },
-      error => {
-        alert("There was error updating the project");
-        console.log(error);
-      }
-    )
+    this.updateProjectDetails();
   }
   canEditCol: boolean = false
   columnNameChangeable(columnName: any) {

@@ -1,7 +1,7 @@
-<ngx-ui-loader
+<!-- <ngx-ui-loader
 fgsColor="#00ACC1" text="Hold On!!" pbColor="#00ACC1"
 >
-</ngx-ui-loader>
+</ngx-ui-loader> -->
 <mat-card>
   <mat-dialog-actions>
       <h2>Add Task</h2>
@@ -83,7 +83,6 @@ fgsColor="#00ACC1" text="Hold On!!" pbColor="#00ACC1"
             {{members?.value|| ''}}
           </mat-select-trigger>
           <mat-option *ngFor="let member of frequencyMethod()" [value]="member">{{member}}</mat-option>
-          <!-- <mat-option *ngFor="let member of projectMembers" [value]="member">{{member}}</mat-option> -->
         </mat-select>
       </mat-form-field>
     </div>
