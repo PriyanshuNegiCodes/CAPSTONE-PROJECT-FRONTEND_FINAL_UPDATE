@@ -20,6 +20,7 @@ export class HeaderComponent {
   isBoardViewVisible: boolean=false;
 
   ngOnInit() {
+    this.isBoardViewVisible=false;
     this.breakPoint.observe([Breakpoints.Handset]).subscribe(
       result => {
         this.DeskTopView = !result.matches;
@@ -30,7 +31,7 @@ export class HeaderComponent {
         this.isBoardViewVisible = event.url !== '/homepage';
       }
     });
-  }
+ }
 
 
   ngDoCheck() {

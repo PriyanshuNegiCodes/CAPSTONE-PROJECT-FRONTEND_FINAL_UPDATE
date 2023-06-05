@@ -15,7 +15,7 @@ export class CustomValidation{
 
     static titleValidator(control: FormControl): ValidationErrors | null {
         const title = control.value;
-        if (title && title.length > 15) {
+        if (title && title.length > 20) {
           return { maxLengthExceeded: true };
         }
         return null;
@@ -25,7 +25,7 @@ export class CustomValidation{
     const content = control.value;
     if (content) {
         const wordCount = content.trim().split(/\s+/).length;
-        if (wordCount > 15) {
+        if (wordCount > 20) {
         return { maxWordCountExceeded: true };
         }
     }

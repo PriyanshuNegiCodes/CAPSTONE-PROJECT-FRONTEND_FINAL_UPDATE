@@ -129,7 +129,7 @@ getProjectNameForEdit(name:string){
               this.members.value.push(this.memberName.value.trim());
               this.findUserName = false;
 
-              
+              // --bellow this are the edit condition
               if(this.project.editProject){
 
                 this.tempArrayForEdit.push(this.memberName.value.trim())
@@ -150,6 +150,8 @@ getProjectNameForEdit(name:string){
           } else {
             this.openSnackBar("Other than you, Cannot Add more than 5 Employees to a Project", "Ok");
           }
+        }else{
+          this.openSnackBar("Member do not exist", "")
         }
       },
       error => {
@@ -172,7 +174,7 @@ getProjectNameForEdit(name:string){
 
       if (this.projectForm.valid) {
         const project: Project = {
-          name: `${this.name.value}-->${this.user.currentUser}`,
+          name: `${this.name.value}-->${this.user.getUser()}`,
           members: this.members.value,
           columns: Object.fromEntries(columnList.entries())
         };
@@ -235,7 +237,7 @@ getProjectNameForEdit(name:string){
   }
 
   openSnackBar(message: string, action: string) {
-    this.snackBar.open(message, action);
+    this.snackBar.open(message, action,{duration:3000});
   }
   // -----------------------------------------
   boardView(project: string) {
@@ -258,9 +260,7 @@ getProjectNameForEdit(name:string){
         
         this.project.getProject(this.projectDetails.name).subscribe(
           response=>{
-            console.log("erespnse");
-            
-            console.log(response)
+      
             originalMember=response
             console.log("Member before puhsing to delte array "+originalMember.members);
             if(originalMember.members.includes(member)){
@@ -340,7 +340,7 @@ getProjectNameForEdit(name:string){
                 response => {
                    
                   if((i===(this.tempArrayForEdit.length-1)&&response)){
-                    this.openSnackBar("Project updated Successfully", "OK");
+                    this.openSnackBar("Project edited Successfully", "OK");
                     this.routes.navigateByUrl('/', { skipLocationChange: true }).then(() => {
                       this.routes.navigate(['/boardView']);
                     });

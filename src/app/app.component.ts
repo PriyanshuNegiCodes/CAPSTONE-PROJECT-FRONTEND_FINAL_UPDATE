@@ -8,7 +8,7 @@ import { NavigationEnd, Router } from '@angular/router';
 })
 export class AppComponent implements OnInit{
   isHeaderVisible: boolean=false;
-  
+  isDefaultPage:boolean=false;
 
   constructor(private router: Router) {
    
@@ -17,6 +17,12 @@ export class AppComponent implements OnInit{
         this.isHeaderVisible = event.url !== '/homepage';
       }
     });
+    this.router.events.subscribe(event => {
+      if (event instanceof NavigationEnd) {
+        this.isDefaultPage = event.url == '/';
+      }
+    });
+  
   }
   
   ngOnInit(): void {

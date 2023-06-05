@@ -4,6 +4,8 @@ import { Router } from '@angular/router';
 import { ProjectService } from '../service/project.service';
 import { Project } from 'src/assets/Project';
 import { UserService } from '../service/user.service';
+import { CustomValidation } from '../service/CustomValidation';
+
 
 @Component({
   selector: 'app-edit-task',
@@ -23,8 +25,8 @@ export class EditTaskComponent implements OnInit {
     this.currentTask = this.projectService.editTask;
     this.setPriority(this.currentTask.priority);
     this.AddTask = this.fb.group({
-      taskName: [this.currentTask.name, Validators.required],
-      taskContent: [this.currentTask.content, Validators.required],
+      taskName: [this.currentTask.name,  [Validators.required,Validators.pattern( /^[a-zA-Z]/),  CustomValidation.titleValidator]],
+      taskContent: [this.currentTask.content,[Validators.required, CustomValidation.contentValidator]],
       taskPriority: [this.currentTask.priority],
       startDate: [this.currentTask.createDate],
       dueDate: [this.currentTask.deadline],

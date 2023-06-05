@@ -32,14 +32,14 @@ export class BoardViewComponent implements OnInit {
   projectList: any=[];
 
   showAddTask:boolean=true;
-  isLoading:boolean=false;
+
   // ---------------------------------------------
   constructor(private ngxLoader: NgxUiLoaderService, private cdr:ChangeDetectorRef  ,private projectService: ProjectService, private http: HttpClient, private noti: NotificationService,
     private snackBar: MatSnackBar, private routing: Router, private user: UserService, private dialog: MatDialog,private breakPoint:BreakpointObserver) { }
   notifications: any = {};
 
   ngOnInit(): void {
-    this.isLoading=false;
+   
 
     let val = this.projectService.getProjectName();
 
@@ -53,6 +53,8 @@ export class BoardViewComponent implements OnInit {
           }
           if(this.projectList==""||this.projectList.length===0||typeof this.projectList==='undefined'||val==null){
             this.showAddTask=false;
+          }else{
+            this.showAddTask=true;
           } 
           this.projectService.setProjectName(val);
           this.projectService.getProject(val).subscribe(
@@ -130,6 +132,7 @@ export class BoardViewComponent implements OnInit {
     );
   }
 
+// ******************************************************************************
   getKey(data: any) {
     for (let col of Object.entries(this.projectDetails.columns)) {
       let [name, arr] = col as any;
@@ -145,7 +148,6 @@ export class BoardViewComponent implements OnInit {
     if (event.previousContainer === event.container) {
       moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
     } else {
-
 
 
       if (this.getKey(event.container.data) == 'Work In Progress' && !this.getNumberOfTaskInWIP()) {
@@ -170,9 +172,9 @@ export class BoardViewComponent implements OnInit {
 
       if ((final-initial>=2) || (initial-final>=2)) {
         this.openSnackBar("Kindly don't skip any step", "OK");
-        console.log(event.previousContainer.data[0])
         return;
       }
+      
       transferArrayItem(
         event.previousContainer.data,
         event.container.data as Task[],
@@ -217,6 +219,7 @@ export class BoardViewComponent implements OnInit {
     }
     return 0;
   }
+
   sortName() {
     for (let col of Object.entries(this.projectDetails.columns)) {
       let [name, arr] = col as any;
@@ -478,14 +481,12 @@ export class BoardViewComponent implements OnInit {
 
   projectDialog: any;
   projectWindow() {
-    this.isLoading=true;
     this.projectService.editProject = false;
     this.projectDialog = this.dialog.open(ProjectComponent);
     this.projectService.closeBoxForProject = false;
   }
 
   ngDoCheck() {
-    this.isLoading=true;
     if (this.projectService.closeBoxForProject) {
       this.projectDialog.close();
     }
@@ -495,10 +496,12 @@ export class BoardViewComponent implements OnInit {
   editProject(project: any) {
     this.projectService.getProject(project).subscribe(
       response=>{
-        this.projectService.setProjectDetailsForProjectEdit(response);
-        this.projectService.editProject = true;
-        this.projectDialog = this.dialog.open(ProjectComponent);
-        this.projectService.closeBoxForProject = false;
+        if(response){
+          this.projectService.setProjectDetailsForProjectEdit(response);
+          this.projectService.editProject = true;
+          this.projectDialog = this.dialog.open(ProjectComponent);
+          this.projectService.closeBoxForProject = false;
+        }
       }
     )
 

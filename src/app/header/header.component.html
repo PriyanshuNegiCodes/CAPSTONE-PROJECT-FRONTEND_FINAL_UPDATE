@@ -17,7 +17,7 @@
           <mat-icon >menu</mat-icon>
       </button>
       <mat-menu #menu="matMenu">
-          <button mat-menu-item *ngIf="currentUser&&isBoardViewVisible" (click)="openBoardView()">
+          <button mat-menu-item *ngIf="currentUser&&!isBoardViewVisible" (click)="openBoardView()">
             <mat-icon matTooltip="User">note</mat-icon> BoardView
         </button>
              <button mat-menu-item *ngIf="currentUser"  (click)="logOut()">
