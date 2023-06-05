@@ -327,10 +327,11 @@ getProjectNameForEdit(name:string){
   }
 
   ngDoCheck() {
-    if (this.project.closeBoxForProject) {
+    if (typeof this.project !== 'undefined' && this.project.closeBoxForProject) {
       this.dialogOpen.close();
     }
   }
+  
 
   editProjectMethod(project:any){
        // ----

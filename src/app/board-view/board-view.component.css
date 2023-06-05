@@ -2,7 +2,7 @@
   font-weight: bolder;
 }
 .kanban-main{
-  display: flex;
+   display: flex;
   flex-wrap: nowrap;
 
 }
@@ -24,10 +24,10 @@
   padding: 2px 10px;
   min-width: 240px;
   border-radius: 15px;
-  border-top: 5px solid rgb(31, 146, 167);
-  border-bottom: 1px solid rgb(216, 209, 243);
-  border-left: 1px solid rgb(216, 209, 243);
-  border-right: 1px solid rgb(217, 209, 248);
+  border-top: 5px solid  #a3c1f1;
+  border-bottom: 1px solid#c1dbf8;
+  border-left: 1px solid #c1dbf8;
+  border-right: 1px solid  #c1dbf8;
   max-width: 100%;
   margin: 0 25px 25px 25px;
   margin-top: 55px;
@@ -279,10 +279,10 @@ mat-sidenav-content {
   position: fixed;
   padding-top: 51px;
   width: 230px;
-  background: linear-gradient(to right, #8fd8f2 74%,#c2e1ed 26%);
+  background: linear-gradient(to right, #a3c1f1 74%,#c1dbf8 26%);
 
 
-  border-right: #007692;
+  border-right:  #a3c1f1;
 
   z-index:-1;
 }
@@ -385,7 +385,7 @@ body {
   z-index: 4;
   margin-left: -20px;
   width:200%;
-  background-color: #8fd8f2;
+  background-color: #a3c1f1;
 }
 
 .nav > .nav-header {
@@ -549,7 +549,7 @@ mat-card-content{
   cursor: pointer;
 }
 
-/* _________- */
+/* _- */
 .blink {
   animation: blinker 0.6s linear infinite;
   color: red;

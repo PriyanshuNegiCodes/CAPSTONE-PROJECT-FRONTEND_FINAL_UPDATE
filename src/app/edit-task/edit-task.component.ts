@@ -188,8 +188,8 @@ export class EditTaskComponent implements OnInit {
         for(let i=0; i<this.fetchedProjectDetails.length;i++){
           for(let j=0; j<this.fetchedProjectDetails[i].members.length;j++){
             if(this.projectMembers.includes(this.fetchedProjectDetails[i].members[j])){
-              if(this.fetchedProjectDetails[i].status!=="Archived"){
-                memberArray.push(this.fetchedProjectDetails[i].members[j]);
+              if(this.fetchedProjectDetails[i]?.status!=="Archived"){
+                memberArray.push(this.fetchedProjectDetails[i]?.members[j]);
               }
             }
 
@@ -198,7 +198,7 @@ export class EditTaskComponent implements OnInit {
 
         for (let i = 0; i < this.projectMembers.length; i++) {
           if (!memberArray.includes(this.projectMembers[i])&&this.projectMembers.includes(this.projectMembers[i])) {
-            if(this.fetchedProjectDetails[i].status!=="Archive"){
+            if(this.fetchedProjectDetails[i]?.status!=="Archive"){
               memberArray.push(this.projectMembers[i]);
             }
             

@@ -33,6 +33,7 @@ export class BoardViewComponent implements OnInit {
   showAddTask:boolean=true;
 
   taskMembers:string []=[];
+  taskStatus:string='';
 
   // ---------------------------------------------
   constructor(private ngxLoader: NgxUiLoaderService, private cdr:ChangeDetectorRef  ,private projectService: ProjectService, private http: HttpClient, private noti: NotificationService,
@@ -162,7 +163,7 @@ export class BoardViewComponent implements OnInit {
       }
    
 
-      if(event.previousContainer.data[0].status=="Archived"){
+      if(this.taskStatus=="Archived"){
         this.openSnackBar("Movement Not allowed in Archives", "OK")
         return ;
       }
@@ -398,7 +399,7 @@ export class BoardViewComponent implements OnInit {
 
   onDragStart(task: any) {
     this.taskMembers=task.members
-    
+    this.taskStatus=task.status;
     this.currentCardTaskStatus = task.priority;
   }
   deleteProject(project: any) {
@@ -517,10 +518,11 @@ export class BoardViewComponent implements OnInit {
   }
 
   ngDoCheck() {
-    if (this.projectService.closeBoxForProject) {
-      this.projectDialog.close();
+    if (typeof this.projectService.closeBoxForProject !== 'undefined' && this.projectService.closeBoxForProject) {
+      this.projectDialog?.close();
     }
   }
+  
 
   // Edit project 
   editProject(project: any) {
