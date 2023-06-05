@@ -31,7 +31,7 @@ export class HeaderComponent {
         this.isBoardViewVisible = event.url !== '/homepage';
       }
     });
-  }
+ }
 
 
   ngDoCheck() {

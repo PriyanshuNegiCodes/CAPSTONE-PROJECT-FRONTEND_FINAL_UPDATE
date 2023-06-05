@@ -132,6 +132,7 @@ export class BoardViewComponent implements OnInit {
     );
   }
 
+// ******************************************************************************
   getKey(data: any) {
     for (let col of Object.entries(this.projectDetails.columns)) {
       let [name, arr] = col as any;
@@ -147,7 +148,6 @@ export class BoardViewComponent implements OnInit {
     if (event.previousContainer === event.container) {
       moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
     } else {
-
 
 
       if (this.getKey(event.container.data) == 'Work In Progress' && !this.getNumberOfTaskInWIP()) {
@@ -172,9 +172,9 @@ export class BoardViewComponent implements OnInit {
 
       if ((final-initial>=2) || (initial-final>=2)) {
         this.openSnackBar("Kindly don't skip any step", "OK");
-        console.log(event.previousContainer.data[0])
         return;
       }
+      
       transferArrayItem(
         event.previousContainer.data,
         event.container.data as Task[],
@@ -219,6 +219,7 @@ export class BoardViewComponent implements OnInit {
     }
     return 0;
   }
+
   sortName() {
     for (let col of Object.entries(this.projectDetails.columns)) {
       let [name, arr] = col as any;

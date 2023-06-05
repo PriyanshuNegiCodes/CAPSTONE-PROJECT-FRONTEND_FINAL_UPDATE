@@ -129,7 +129,7 @@ getProjectNameForEdit(name:string){
               this.members.value.push(this.memberName.value.trim());
               this.findUserName = false;
 
-              
+              // --bellow this are the edit condition
               if(this.project.editProject){
 
                 this.tempArrayForEdit.push(this.memberName.value.trim())
@@ -260,9 +260,7 @@ getProjectNameForEdit(name:string){
         
         this.project.getProject(this.projectDetails.name).subscribe(
           response=>{
-            console.log("erespnse");
-            
-            console.log(response)
+      
             originalMember=response
             console.log("Member before puhsing to delte array "+originalMember.members);
             if(originalMember.members.includes(member)){
