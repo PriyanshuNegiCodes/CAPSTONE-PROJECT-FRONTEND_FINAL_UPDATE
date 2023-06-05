@@ -169,12 +169,13 @@ export class BoardViewComponent implements OnInit {
      
       let initial=this.getColumnIndex(event.previousContainer.data[0].status);
       let final=this.getColumnIndex(this.getKey(event.container.data));
-
+      alert(event.previousContainer.data[0].status)  
       if ((final-initial>=2) || (initial-final>=2)) {
+        alert("final"+final+" initial " +initial)
         this.openSnackBar("Kindly don't skip any step", "OK");
         return;
       }
-      
+
       transferArrayItem(
         event.previousContainer.data,
         event.container.data as Task[],
