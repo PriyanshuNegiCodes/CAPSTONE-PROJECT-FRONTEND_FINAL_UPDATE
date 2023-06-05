@@ -46,7 +46,7 @@ export class BoardViewComponent implements OnInit {
       response => {
         if(response){
           this.projectList = response;
-      
+          
           if (val === null || typeof val === 'undefined') {
             val = this.projectList.projectList[0];
           }
@@ -148,7 +148,11 @@ export class BoardViewComponent implements OnInit {
       moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
     } else {
 
-
+      if(event.previousContainer.data[0].status=="Archived"){
+        this.openSnackBar("Movement Not allowed in Archives", "OK")
+        return ;
+      }
+      
       if (this.getKey(event.container.data) == 'Work In Progress' && !this.getNumberOfTaskInWIP()) {
         this.openSnackBar("WIP limit reached", "OK")
         return;
