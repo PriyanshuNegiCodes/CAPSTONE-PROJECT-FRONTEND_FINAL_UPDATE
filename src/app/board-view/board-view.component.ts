@@ -166,6 +166,8 @@ export class BoardViewComponent implements OnInit {
         this.openSnackBar("Not Allowed","OK")
         return;
       }
+
+      
      
       let initial=this.getColumnIndex(event.previousContainer.data[0].status);
       let final=this.getColumnIndex(this.getKey(event.container.data));
@@ -429,17 +431,7 @@ export class BoardViewComponent implements OnInit {
       }
     }
 
-    this.projectService.updateProject(this.projectDetails).subscribe(
-
-      response => {
-        console.log(response);
-      },
-      error => {
-        alert("There was error updating the project");
-        console.log(error);
-
-      }
-    )
+    this.updateProjectDetails();
   }
   currentUser = this.user.currentUser;
   restore(columnName: any, task: any) {
@@ -453,6 +445,7 @@ export class BoardViewComponent implements OnInit {
         }
       } else {
         if (this.projectDetails.columns[columnName][i].name == task.name) {
+          alert(columnName)
           this.projectDetails.columns[columnName][i].status = columnName
           // this.projectDetails.columns[columnName].splice(i, 1);
           this.openSnackBar("The task was Restored successfully", "OK")
@@ -460,7 +453,27 @@ export class BoardViewComponent implements OnInit {
         }
       }
     }
+    this.updateProjectDetails();
+    
   }
+
+  // -------------------------------------------
+    updateProjectDetails(){
+      this.projectService.updateProject(this.projectDetails).subscribe(
+
+        response => {
+          console.log(response);
+        },
+        error => {
+          alert("There was error updating the project");
+          console.log(error);
+  
+        }
+      )
+    }
+
+  // --------------------------------------------
+
 
   // ------------------------------------u---------------------------------------
   openSnackBar(message: string, action: string) {
@@ -608,6 +621,7 @@ export class BoardViewComponent implements OnInit {
     }
 
   }
+  
   taskArchive:boolean=false;
   getTaskStatus(status:any){
     if(status=='Archived'){
