@@ -223,6 +223,7 @@ getProjectNameForEdit(name:string){
                     this.routes.navigateByUrl('/', { skipLocationChange: true }).then(() => {
                       this.routes.navigate(['/boardView']);
                     });
+                    
                   }
                 } );
                 

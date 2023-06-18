@@ -17,8 +17,6 @@ import { ConfirmmessageComponent } from '../confirmmessage/confirmmessage.compon
 import html2canvas from 'html2canvas';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { NgxUiLoaderService } from 'ngx-ui-loader';
-
-
 @Component({
   selector: 'app-board-view',
   templateUrl: './board-view.component.html',
@@ -103,25 +101,32 @@ export class BoardViewComponent implements OnInit {
 
   search() {
     let val = this.projectService.getProjectName();
+
     this.user.getProjectList().subscribe(
       response => {
         this.projectList = response;
         if (val == null) {
-          console.log("test");
+          alert(val);
           val = this.projectList.projectList[0];
-          console.log(val);
+
         }
         this.projectService.setProjectName(val);
+
+        // Fetch project details based on the name
         this.projectService.getProject(val).subscribe(
           response => {
             this.projectDetails = response;
+            console.log(this.projectDetails.columns);
+              
+            // Input the name of column and find all the data
             for (let col of Object.entries(this.projectDetails.columns)) {
+              
               let [name, arr] = col as any;
-              console.log(name);
+
               arr = arr.filter((task: Task) => {
                 return task.name.startsWith(this.searchText)
               })
-              console.log(arr);
+
               this.projectDetails.columns[name] = arr
             }
           },
@@ -204,18 +209,9 @@ export class BoardViewComponent implements OnInit {
         event.currentIndex
       );
     }
-    console.log(this.projectDetails);
-    console.log(event.previousContainer.data[0])
-
-    // this.projectService.getProject(this.projectService.getProjectName()).subscribe(
-    //   response=>{
-    //     this.projectDetails=response;
-       
-    //   }
-    // )
 
  
-    
+      
     if(this.searchText.length==0){
       
       this.getColumnTasks(this.getKey(event.container.data));
@@ -257,15 +253,15 @@ export class BoardViewComponent implements OnInit {
   sortPriority() {
     for (let col of Object.entries(this.projectDetails.columns)) {
       let [name, arr] = col as any;
-      console.log(arr);
+
       const order: any = { Urgent: 0, High: 1, Normal: 2, Low: 3, Clear: 4 };
-      console.log(order['Low']);
+
       arr = arr.sort((a: any, b: any) =>
         order[a.priority] - order[b.priority]
       )
-      console.log(arr);
     }
   }
+  
   sortDeadline() {
     for (let col of Object.entries(this.projectDetails.columns)) {
       let [name, arr] = col as any;
@@ -661,6 +657,7 @@ export class BoardViewComponent implements OnInit {
 
       if (name == columnName && name !== 'To Be Done' && name !== 'Work In Progress' && name !== 'Completed') {
         const newName = event.target.innerText;
+        alert(newName)
         delete this.projectDetails.columns[columnName];
         this.projectDetails.columns[newName] = arr;
         this.updateProjectDetails();
