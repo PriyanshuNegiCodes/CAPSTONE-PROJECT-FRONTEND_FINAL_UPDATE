@@ -69,20 +69,18 @@ export class EditTaskComponent implements OnInit {
 
 
   setDate() {
-    console.log(typeof(this.currentTask.createDate))
-    console.log(typeof(this.startDate))
-    console.log(this.startDate)
-    console.log(typeof(this.startDate?.value))
-    console.log(this.startDate?.value)
+
+    
     this.createDate = this.startDate?.value
     let hoursDiff = this.createDate.getHours() - this.createDate.getTimezoneOffset() / 60;
     let minutesDiff = (this.createDate.getHours() - this.createDate.getTimezoneOffset()) % 60;
     this.createDate.setHours(hoursDiff);
     this.createDate.setMinutes(minutesDiff);
   }
+  
   AddTask: FormGroup = this.fb.group({
-    taskName: [this.currentTask.name, Validators.required],
-    taskContent: ['', Validators.required],
+    taskName: ['', [Validators.required,Validators.pattern( /^[a-zA-Z]/),  CustomValidation.titleValidator]],
+    taskContent: ['', [Validators.required, CustomValidation.contentValidator]],
     taskPriority: [''],
     startDate: [''],
     dueDate: [''],

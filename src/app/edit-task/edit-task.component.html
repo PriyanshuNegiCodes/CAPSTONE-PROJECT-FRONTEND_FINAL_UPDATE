@@ -53,7 +53,7 @@ fgsColor="#00ACC1" text="Hold On!!" pbColor="#00ACC1"
         </mat-form-field>
       </div>
   
-      <div class="forms">
+      <!-- <div class="forms">
         <mat-form-field appearance="fill">
           <mat-label>Start Date</mat-label>
           <input matInput [matDatepicker]="picker1" formControlName="startDate" [min]="currentDate"
@@ -78,6 +78,29 @@ fgsColor="#00ACC1" text="Hold On!!" pbColor="#00ACC1"
         </mat-form-field>
   
   
+      </div> -->
+      <div class="forms">
+        <mat-form-field appearance="fill">
+          <mat-label>Start Date</mat-label>
+          <input matInput [matDatepicker]="picker1" formControlName="startDate" [min]="currentDate"
+            (dateInput)="setDate()">
+          <mat-datepicker-toggle matIconSuffix [for]="picker1"></mat-datepicker-toggle>
+          <mat-datepicker #picker1></mat-datepicker>
+        </mat-form-field>
+      </div>
+  
+      <div class="forms">
+        <mat-form-field appearance="fill">
+          <mat-label>Due Date</mat-label>
+          <input matInput [matDatepicker]="picker2" formControlName="dueDate" [min]="createDate">
+          <mat-datepicker-toggle matIconSuffix [for]="picker2"></mat-datepicker-toggle>
+          <mat-datepicker #picker2></mat-datepicker>
+          <mat-error *ngIf="((startDate?.dirty || startDate?.touched) && (dueDate?.dirty ||dueDate?.touched))">
+            <mat-error *ngIf="dueDate?.invalid">
+              Start-Date should be less than Due-Date
+            </mat-error>
+          </mat-error>
+        </mat-form-field>
       </div>
 <!--   
       <div class="forms">

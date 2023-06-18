@@ -41,7 +41,7 @@ export class BoardViewComponent implements OnInit {
   notifications: any = {};
 
   ngOnInit(): void {
-   
+    this.dialog.open(EditTaskComponent).close();
 
     let val = this.projectService.getProjectName();
 
@@ -193,7 +193,6 @@ export class BoardViewComponent implements OnInit {
     
       // alert("From "+event.previousContainer.data[1].status+ " to "+ this.getKey(event.container.data))
       if ((final-initial>=2) || (initial-final>=2)) {
-        alert("Final "+final+" initial "+initial)
         this.openSnackBar("Kindly don't skip any step", "OK");
         return;
       }
