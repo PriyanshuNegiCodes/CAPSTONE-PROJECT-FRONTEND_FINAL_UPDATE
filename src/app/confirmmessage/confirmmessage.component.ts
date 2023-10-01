@@ -1,22 +1,17 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { ProjectService } from '../service/project.service';
-
+import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 @Component({
   selector: 'app-confirmmessage',
   templateUrl: './confirmmessage.component.html',
   styleUrls: ['./confirmmessage.component.css']
 })
-export class ConfirmmessageComponent implements OnInit{
-  constructor(private prj:ProjectService){} 
-  
-  ngOnInit(): void {
-    this.prj.closeBoxForProject=false;
-  }
+export class ConfirmmessageComponent {
+  constructor(private prj:ProjectService,  private dialog: MatDialog){} 
   confirmMsg = this.prj.confirmMsg;
 
-
   leave(){
-  this.prj.closeBoxForProject=true;
+  this.dialog.closeAll();
   }
 
   dlt(){

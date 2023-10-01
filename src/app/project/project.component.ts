@@ -167,9 +167,6 @@ getProjectNameForEdit(name:string){
 
   addProject() {
     //  ---------------------------------------------------------------------------
-    if (this.columns.value.length < 2) {
-      this.openSnackBar("There must be atleast 2 columns", "Got-It")
-    } else {
 
       const columnList: Map<string, any[]> = new Map();
       for (let i = 0; i < this.columns.value.length; i++) {
@@ -186,8 +183,6 @@ getProjectNameForEdit(name:string){
 
         
         if(this.project.editProject){
-
-
           if(this.deletedMember.length>0){
               
             for(let i =0; i<this.deletedMember.length;i++){
@@ -203,42 +198,20 @@ getProjectNameForEdit(name:string){
            }  else{
               this.editProjectMethod(project);
            }
-           
-          // ____________________________________NORML WOKRING_________________________________
-
         }else{
           this.project.addNewProject(project).subscribe(
 
           response => {
-            console.log(response);
-            for (let i = 0; i < this.members.value.length; i++) {
-
-              this.http.get(`http://localhost:8085/api/v1/user/updateProject/${this.members.value[i]}/${project.name}`).subscribe(
-
-                response => {console.log(response); 
-
-                  if((i===(this.members.value.length-1)&&response)){
-                   
-                    this.openSnackBar("Project added Successfuly", "OK");
-                    this.routes.navigateByUrl('/', { skipLocationChange: true }).then(() => {
-                      this.routes.navigate(['/boardView']);
-                    });
-                    
-                  }
-                } );
-                
-            }
-           
-
+            this.user.updateUserProject(this.members, project);
+            this.openSnackBar("Project added Successfuly", "OK");
           },
           error => {
             this.openSnackBar(`Project with name ${project.name} already exist`, "OK");
           }
         )
       }
-        this.routes.navigate(['/boardView'], { state: { ProjectName: project.name } })
       }
-    }
+    
   }
 
   openSnackBar(message: string, action: string) {
@@ -279,14 +252,11 @@ getProjectNameForEdit(name:string){
                 this.tempArrayForEdit.splice(index, 1);
               }
             }
-          },
-            
+          },            
             error=>{         
               console.log(error);
             }
-        )
-
-       
+        )    
       }
 
     }
@@ -323,45 +293,21 @@ getProjectNameForEdit(name:string){
   // -----------------Confirm project box close
   dialogOpen:any=this.dialog.open(ConfirmmessageComponent).close();
   confirmWindow() {
-    this.project.confirmMsg = "prj";
-    this.dialogOpen = this.dialog.open(ConfirmmessageComponent);
-  }
-
-  ngDoCheck() {
-    if (typeof this.project !== 'undefined' && this.project.closeBoxForProject) {
-      this.dialogOpen.close();
-    }
+    this.dialog.open(ConfirmmessageComponent);
   }
   
-
   editProjectMethod(project:any){
-       // ----
        if (this.tempArrayForEdit.length > 0) {
         this.project.editProjectData(this.projectDetails.name, project).subscribe(
           response => {
-            let completedRequests = 0; // Counter variable for completed requests
-      
-            for (let i = 0; i < this.tempArrayForEdit.length; i++) {
-              this.http.get(`http://localhost:8085/api/v1/user/updateProject/${this.tempArrayForEdit[i]}/${project.name}`).subscribe(
-                response => {
-                   
-                  if((i===(this.tempArrayForEdit.length-1)&&response)){
-                    this.openSnackBar("Project edited Successfully", "OK");
-                    this.routes.navigateByUrl('/', { skipLocationChange: true }).then(() => {
-                      this.routes.navigate(['/boardView']);
-                    });
-                  }
-                }
-              );
-            }
+            this.user.updateUserProject(this.tempArrayForEdit, project);
+            this.openSnackBar("Project added Successfuly", "OK");
           },
           error => {
             console.log(error);
           }
         );
       }
-      
-      // ---
   }
 
 }

@@ -1,7 +1,7 @@
-<!-- <ngx-ui-loader
+<ngx-ui-loader
 fgsColor="#00ACC1" text="Hold On!!" pbColor="#00ACC1"
 >
-</ngx-ui-loader> -->
+</ngx-ui-loader>
 
 <mat-card class="container">
   <mat-dialog-actions >
@@ -9,15 +9,10 @@ fgsColor="#00ACC1" text="Hold On!!" pbColor="#00ACC1"
     <h2 *ngIf="!edit">Create Project</h2>
     <div class="close-Button">
       <button mat-button (click)="confirmWindow()"  matTooltip="Close" class="custom-icon">
-
-      <!-- <button mat-button mat-dialog-close (click)="confirmWindow()"  matTooltip="Close" class="custom-icon"> -->
         <mat-icon >clear</mat-icon>
       </button>
     </div>
   </mat-dialog-actions>
- 
-
-
       <form [formGroup]="projectForm">
         <div class="projectNameCSS">
           <mat-form-field appearance="outline" >

@@ -147,7 +147,7 @@ frequencyMethod(){
       members: this.members?.value
     };
 
-    if(this.projectService.projectDetailsTBD.length<10){
+    if(this.projectService.projectDetailsTBD.length<5){
       this.projectService.addNewTask(task).subscribe(
         repsonse => {
           console.log(repsonse)
@@ -159,7 +159,7 @@ frequencyMethod(){
       );
   
     }else{
-      this.openSnackBar("Cannot Add More than 10 task in To-BE-Done", "OK")
+      this.openSnackBar("Cannot Add More than 5 task in To-BE-Done", "OK")
     }
     this.onClose()
   }

@@ -1,12 +1,14 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Router } from '@angular/router';
+import { forkJoin } from 'rxjs/internal/observable/forkJoin';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UserService {
 
-  constructor(private httpClient:HttpClient) {}
+  constructor(private httpClient:HttpClient, private router:Router) {}
 
   currentUser:any;
 
@@ -19,6 +21,27 @@ export class UserService {
       return localStorage.getItem("name");
     }
     return this.currentUser;
+  }
+
+   async updateUserProject(members: any, project: any) {
+
+    const observables = members.value.map((member: any) =>
+      this.httpClient.get(`http://localhost:8085/api/v1/user/updateProject/${member}/${project.name}`)
+    );
+
+    forkJoin(observables).subscribe(
+      () => {
+        console.log("All HTTP requests completed");
+
+        console.log("now routing");
+        this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
+                this.router.navigate(['/boardView']);
+              });
+      },
+      (error) => {
+        console.error("An error occurred during the HTTP requests:", error);
+      }
+    );
   }
 
   resetUser(){

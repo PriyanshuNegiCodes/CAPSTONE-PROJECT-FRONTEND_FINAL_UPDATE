@@ -33,7 +33,7 @@ export class ProjectService {
   confirmMsg:string='';
   confirmdlt?:boolean;
 
-  closeBoxForProject:boolean|any=false;
+  closeBoxForProject:boolean=false;
 
 // ___________CODE for the use in edit project-----------------------------
   editProject:boolean=false;

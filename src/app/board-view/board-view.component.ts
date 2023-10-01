@@ -10,7 +10,6 @@ import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { ProjectComponent } from '../project/project.component';
 import { TaskComponent } from '../task/task.component';
 import { MatSidenav } from '@angular/material/sidenav';
-import { HttpClient } from '@angular/common/http';
 import { NotificationService } from '../service/notification.service';
 import { EditTaskComponent } from '../edit-task/edit-task.component';
 import { ConfirmmessageComponent } from '../confirmmessage/confirmmessage.component';
@@ -34,12 +33,20 @@ export class BoardViewComponent implements OnInit {
   taskStatus:string='';
 
   // ---------------------------------------------
-  constructor(private ngxLoader: NgxUiLoaderService, private cdr:ChangeDetectorRef  ,private projectService: ProjectService, private http: HttpClient, private noti: NotificationService,
-    private snackBar: MatSnackBar, private routing: Router, private user: UserService, private dialog: MatDialog,private breakPoint:BreakpointObserver) { }
+  constructor(private ngxLoader: NgxUiLoaderService ,
+    private projectService: ProjectService,
+    private noti: NotificationService,
+    private snackBar: MatSnackBar,     private routing: Router,
+     private user: UserService, private dialog: MatDialog,
+     private breakPoint:BreakpointObserver) { }
+     
   notifications: any = {};
 
   ngOnInit(): void {
-    this.dialog.open(EditTaskComponent).close();
+
+    console.log("now you reached the board view component");
+    
+    // this.dialog.open(EditTaskComponent).close();
 
     let val = this.projectService.getProjectName();
 
@@ -58,7 +65,7 @@ export class BoardViewComponent implements OnInit {
           } 
           this.projectService.setProjectName(val);
           this.projectService.getProject(val).subscribe(
-            response => {``
+            response => {
               this.projectDetails = response;
               this.projectService.setProjectDetails(this.projectDetails.columns["Work In Progress"])
               this.projectService.setProjectDetailsTBD(this.projectDetails.columns["To Be Done"])
@@ -106,7 +113,7 @@ export class BoardViewComponent implements OnInit {
       response => {
         this.projectList = response;
         if (val == null) {
-          alert(val);
+         
           val = this.projectList.projectList[0];
 
         }
@@ -286,23 +293,25 @@ export class BoardViewComponent implements OnInit {
 
   notificationSize: number = 0;
   notificationArray: any;
+
   getNotification() {
     this.noti.getNotification().subscribe(
       response => {
         this.notifications = response;
-        this.notificationSize = this.notifications.notificationMessage;
+        const notiArray = Object.entries(this.notifications.notificationMessage);
         let i = 0;
-        for (let msg of Object.entries(this.notifications.notificationMessage)) {
+        
+        for (let msg of notiArray) {
           let [noti, flag] = msg as any;
           if (flag == false)
             i += 1
         }
         this.notificationSize = i;
-        const notiArray = Object.entries(this.notifications.notificationMessage);
-        notiArray.sort((key, value) => {
-          if (key[1] === value[1]) {
+          
+        notiArray.sort((first, second) => {
+          if (first[1] === second[1]) {
             return 0;
-          } else if (key[1] === false) {
+          } else if (first[1] === false) {
             return -1;
           } else {
             return 1;
@@ -425,7 +434,6 @@ export class BoardViewComponent implements OnInit {
       if (this.user.currentUser !== task.assignee) {
         if (this.projectDetails.columns[columnName][i].name == task.name && columnName == 'Completed') {
           this.projectDetails.columns[columnName][i].status = 'Archived'
-          // this.projectDetails.columns[columnName].splice(i, 1);
 
           this.openSnackBar("The task was deleted successfully", "OK")
           break;
@@ -451,7 +459,6 @@ export class BoardViewComponent implements OnInit {
       if (this.user.currentUser !== task.assignee) {
         if (this.projectDetails.columns[columnName][i].name == task.name && columnName == 'Completed') {
           this.projectDetails.columns[columnName][i].status = columnName
-          // this.projectDetails.columns[columnName].splice(i, 1);
           this.openSnackBar("The task was Restored successfully", "OK")
           break;
         }
@@ -459,7 +466,6 @@ export class BoardViewComponent implements OnInit {
         if (this.projectDetails.columns[columnName][i].name == task.name) {
    
           this.projectDetails.columns[columnName][i].status = columnName
-          // this.projectDetails.columns[columnName].splice(i, 1);
           this.openSnackBar("The task was Restored successfully", "OK")
           break;
         }
@@ -483,14 +489,9 @@ export class BoardViewComponent implements OnInit {
         }
       )
     }
-
-  // --------------------------------------------
-
-
-  // ------------------------------------u---------------------------------------
+    
   openSnackBar(message: string, action: string) {
     this.snackBar.open(message, action, { duration: 3000 });
-    // this.routing.navigate(['/project']);
   }
 
   show: boolean = false;
@@ -505,29 +506,18 @@ export class BoardViewComponent implements OnInit {
 
   // ----------------------------
 
-  projectDialog:any=this.dialog.open(ProjectComponent).close();
   projectWindow() {
     this.projectService.editProject = false;
-    this.projectDialog = this.dialog.open(ProjectComponent);
-    this.projectService.closeBoxForProject = false;
+    this.dialog.open(ProjectComponent);
   }
 
-  ngDoCheck() {
-    if (typeof this.projectService.closeBoxForProject !== 'undefined' && this.projectService.closeBoxForProject) {
-      this.projectDialog?.close();
-    }
-  }
-  
-
-  // Edit project 
   editProject(project: any) {
     this.projectService.getProject(project).subscribe(
       response=>{
         if(response){
           this.projectService.setProjectDetailsForProjectEdit(response);
           this.projectService.editProject = true;
-          this.projectDialog = this.dialog.open(ProjectComponent);
-          this.projectService.closeBoxForProject = false;
+         this.dialog.open(ProjectComponent);
         }
       }
     )
@@ -611,6 +601,7 @@ export class BoardViewComponent implements OnInit {
       console.error('Element not found');
     }
   }
+  
   shareBoard() {
 
     const ss = document.getElementsByClassName('kanban-main')[0] as HTMLElement;
