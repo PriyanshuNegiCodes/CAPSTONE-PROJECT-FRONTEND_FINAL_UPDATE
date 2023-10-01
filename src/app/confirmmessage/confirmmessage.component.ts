@@ -16,5 +16,6 @@ export class ConfirmmessageComponent {
 
   dlt(){
     this.prj.confirmdlt = true;
+    this.dialog.closeAll();
    }
 }

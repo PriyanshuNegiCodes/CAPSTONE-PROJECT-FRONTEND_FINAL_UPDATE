@@ -8,6 +8,7 @@ import { Router } from '@angular/router';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ConfirmmessageComponent } from '../confirmmessage/confirmmessage.component';
 import { MatDialog } from '@angular/material/dialog';
+import { forkJoin } from 'rxjs';
 @Component({
   selector: 'app-project',
   templateUrl: './project.component.html',
@@ -166,8 +167,6 @@ getProjectNameForEdit(name:string){
   }
 
   addProject() {
-    //  ---------------------------------------------------------------------------
-
       const columnList: Map<string, any[]> = new Map();
       for (let i = 0; i < this.columns.value.length; i++) {
         columnList.set(this.columns.value[i], [])
@@ -179,14 +178,24 @@ getProjectNameForEdit(name:string){
           members: this.members.value,
           columns: Object.fromEntries(columnList.entries())
         };
-
-
         
         if(this.project.editProject){
           if(this.deletedMember.length>0){
+
+            // const observable=this.deletedMember.value.map((member:any)=>
+            // {
+            //   this.user.removeProjectOfMember(project.name,member)
+            // })
+
+            // forkJoin(observable).subscribe(()=>
+            // {
+            //   console.log("all delete request completed");
+            //   this.editProjectMethod(project);
+              
+            // })
               
             for(let i =0; i<this.deletedMember.length;i++){
-          
+      
               this.user.removeProjectOfMember(project.name, this.deletedMember[i]).subscribe(
                 response=>{
                   if(response){
@@ -211,7 +220,6 @@ getProjectNameForEdit(name:string){
         )
       }
       }
-    
   }
 
   openSnackBar(message: string, action: string) {

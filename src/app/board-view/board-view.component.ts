@@ -512,6 +512,7 @@ export class BoardViewComponent implements OnInit {
   }
 
   editProject(project: any) {
+    this.projectService.confirmMsg = "prj";
     this.projectService.getProject(project).subscribe(
       response=>{
         if(response){

@@ -23,7 +23,7 @@ export class UserService {
     return this.currentUser;
   }
 
-   async updateUserProject(members: any, project: any) {
+    updateUserProject(members: any, project: any) {
 
     const observables = members.value.map((member: any) =>
       this.httpClient.get(`http://localhost:8085/api/v1/user/updateProject/${member}/${project.name}`)
@@ -86,6 +86,4 @@ export class UserService {
   removeProjectOfMember(projectName:any, name:any){
     return this.httpClient.get(this.baseurl2+`removeProjectFromMember/${projectName}/${name}`)
   }
-
-
 }
