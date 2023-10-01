@@ -8,7 +8,7 @@ import { Router } from '@angular/router';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ConfirmmessageComponent } from '../confirmmessage/confirmmessage.component';
 import { MatDialog } from '@angular/material/dialog';
-import { forkJoin } from 'rxjs';
+import { forkJoin } from 'rxjs/internal/observable/forkJoin';
 @Component({
   selector: 'app-project',
   templateUrl: './project.component.html',
@@ -180,33 +180,14 @@ getProjectNameForEdit(name:string){
         };
         
         if(this.project.editProject){
-          if(this.deletedMember.length>0){
-
-            // const observable=this.deletedMember.value.map((member:any)=>
-            // {
-            //   this.user.removeProjectOfMember(project.name,member)
-            // })
-
-            // forkJoin(observable).subscribe(()=>
-            // {
-            //   console.log("all delete request completed");
-            //   this.editProjectMethod(project);
-              
-            // })
-              
-            for(let i =0; i<this.deletedMember.length;i++){
-      
-              this.user.removeProjectOfMember(project.name, this.deletedMember[i]).subscribe(
-                response=>{
-                  if(response){
-                    this.editProjectMethod(project);
-                  }
-                }                                
-              )
-            }
-           }  else{
-              this.editProjectMethod(project);
-           }
+   
+          if(this.deletedMember.length>0){     
+            this.user.removeProjectOfMember(project.name, this.deletedMember);
+           }  
+           if(this.tempArrayForEdit.length>0){         
+            this.user.editUserProject(this.tempArrayForEdit, project);
+            this.editProjectMethod(project);
+          }
         }else{
           this.project.addNewProject(project).subscribe(
 
@@ -304,18 +285,18 @@ getProjectNameForEdit(name:string){
     this.dialog.open(ConfirmmessageComponent);
   }
   
-  editProjectMethod(project:any){
-       if (this.tempArrayForEdit.length > 0) {
-        this.project.editProjectData(this.projectDetails.name, project).subscribe(
+ async editProjectMethod(project:any){
+      console.log("this is edit project ");
+         this.project.editProjectData(this.projectDetails.name, project).subscribe(
           response => {
-            this.user.updateUserProject(this.tempArrayForEdit, project);
-            this.openSnackBar("Project added Successfuly", "OK");
+              if(response){
+                this.openSnackBar("Project updated Successfuly", "OK");
+              }
           },
           error => {
             console.log(error);
           }
         );
-      }
   }
 
 }

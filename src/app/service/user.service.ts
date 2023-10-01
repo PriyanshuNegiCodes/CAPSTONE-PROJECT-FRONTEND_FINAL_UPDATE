@@ -12,6 +12,9 @@ export class UserService {
 
   currentUser:any;
 
+  baseUrl:string ="http://localhost:8085/api/v1/auth";
+  baseurl2:string="http://localhost:8085/api/v1/user/";
+
   setUser(name:any){
    localStorage.setItem("name", name);
    this.currentUser=localStorage.getItem("name") 
@@ -23,6 +26,19 @@ export class UserService {
     return this.currentUser;
   }
 
+  editUserProject(members: any, project: any){
+    for(let i=0;i<members.length;i++){
+      this.httpClient.get(`http://localhost:8085/api/v1/user/updateProject/${members[i]}/${project.name}`).subscribe(
+        response=>{
+            console.log(response);
+        },
+        error=>{
+           console.log(error);    
+        }
+      )
+     }  
+ 
+  }
     updateUserProject(members: any, project: any) {
 
     const observables = members.value.map((member: any) =>
@@ -44,15 +60,25 @@ export class UserService {
     );
   }
 
+  removeProjectOfMember(projectName:any, name:any){
+    const observable=name.map((member:any)=>{
+     
+      this.httpClient.get(this.baseurl2+`removeProjectFromMember/${projectName}/${member}`).subscribe();
+    })
+    forkJoin(observable).subscribe(
+      () => {
+        console.log("All HTTP requests completed in Deletion");
+      },
+      (error) => {
+        console.error("An error occurred during the HTTP requests:", error);
+      }
+    );
+  }
+
   resetUser(){
     localStorage.removeItem("name")
     this.currentUser=undefined;
   }
-
-  // baseUrl:string ="http://localhost:3033/api/v1/auth";
-  // baseurl2:string="http://localhost:8007/api/v1/user/";
-  baseUrl:string ="http://localhost:8085/api/v1/auth";
-  baseurl2:string="http://localhost:8085/api/v1/user/";
 
 
   loginUser(loginData:any){
@@ -83,7 +109,8 @@ export class UserService {
     return this.httpClient.get(this.baseUrl+ '/registeredUsers');
   }
 
-  removeProjectOfMember(projectName:any, name:any){
-    return this.httpClient.get(this.baseurl2+`removeProjectFromMember/${projectName}/${name}`)
-  }
+  // removeProjectOfMember(projectName:any, name:any){
+  //   return this.httpClient.get(this.baseurl2+`removeProjectFromMember/${projectName}/${name}`)
+  // }
+
 }
