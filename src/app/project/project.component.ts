@@ -287,6 +287,11 @@ getProjectNameForEdit(name:string){
   
  async editProjectMethod(project:any){
       console.log("this is edit project ");
+      alert(project.members.length)
+      // for(let i=0;i<project.members.length;i++){
+      //   console.log('thi si memeber '+project.members.value[i]);
+      // }
+      
          this.project.editProjectData(this.projectDetails.name, project).subscribe(
           response => {
               if(response){
